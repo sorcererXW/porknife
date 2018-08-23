@@ -1,13 +1,13 @@
 package com.github.sorcererxw.porknife.parser
 
-import com.github.sorcererxw.porknife.entity.FeedItem
 import com.github.sorcererxw.porknife.entity.Channel
+import com.github.sorcererxw.porknife.entity.FeedItem
 import com.github.sorcererxw.porknife.entity.Owner
-import org.w3c.dom.Node
-import org.w3c.dom.NodeList
 import com.github.sorcererxw.porknife.utils.DatetimeUtil
 import com.github.sorcererxw.porknife.utils.ListUtil
 import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
 import java.util.*
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
@@ -33,7 +33,8 @@ class PodcastParser(private val channel: Node) {
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(channel) }.first()
     fun generator(): String = arrayOf("generator").map { xPath.compile(it).evaluate(channel) }.first()
     fun language(): String = arrayOf("language").map { xPath.compile(it).evaluate(channel) }.first()
-    fun image(): String = arrayOf("itunes:image/@href","image/@href").map { xPath.compile(it).evaluate(channel) }.first()
+    fun image(): String = arrayOf("itunes:image/@href", "image/@href").map { xPath.compile(it).evaluate(channel) }.first()
+    fun explicit(): Boolean = arrayOf("itunes:explicit").map { xPath.compile(it).evaluate(channel) }.map { it == "yes" }.first()
 
     fun owner(): Owner? = arrayOf("itunes:owner")
             .map { xPath.compile(it).evaluate(channel, XPathConstants.NODE) as Node }
@@ -68,6 +69,7 @@ class PodcastParser(private val channel: Node) {
             language = language(),
             image = image(),
             category = category(),
-            item = items()
+            item = items(),
+            explicit = explicit()
     )
 }

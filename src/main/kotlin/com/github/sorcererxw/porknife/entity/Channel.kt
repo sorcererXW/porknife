@@ -22,25 +22,7 @@ data class Channel(
         val generator: String = "",
         val language: String = "",
         val image: String = "",
+        val explicit: Boolean = false,
         val category: List<String> = ArrayList(),
         val item: List<FeedItem> = ArrayList()
-) {
-    override fun toString(): String {
-        return "Podcast(" +
-                "\ntitle='$title'," +
-                "\nauthor='$author'," +
-                "\nlink='$link'," +
-                "\nowner=$owner," +
-                "\nsummary='$summary'," +
-                "\ndescription='$description'," +
-                "\ntype='$type'," +
-                "\nsubtitle='$subtitle'," +
-                "\npubDate=$pubDate," +
-                "\ngenerator='$generator'," +
-                "\nlanguage='$language'," +
-                "\nimage='$image'," +
-                "\ncategory=$category," +
-                "\nitem=$item" +
-                ")"
-    }
-}
+)
