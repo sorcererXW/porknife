@@ -1,8 +1,8 @@
-package parser
+package com.sorcererxw.porknife.parser
 
-import entity.EpisodeEnclosure
+import com.sorcererxw.porknife.entity.EpisodeEnclosure
 import org.w3c.dom.Node
-import utils.RssNamespaceResolver
+import com.sorcererxw.porknife.utils.RssNamespaceResolver
 import javax.xml.xpath.XPathFactory
 
 /**

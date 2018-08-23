@@ -1,7 +1,9 @@
-import entity.Podcast
+package com.sorcererxw.porknife
+
+import com.sorcererxw.porknife.entity.Podcast
 import org.w3c.dom.Node
-import parser.PodcastParser
-import utils.DocumentReader
+import com.sorcererxw.porknife.parser.PodcastParser
+import com.sorcererxw.porknife.utils.DocumentReader
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
 

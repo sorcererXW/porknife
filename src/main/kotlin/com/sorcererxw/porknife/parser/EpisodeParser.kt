@@ -1,10 +1,10 @@
-package parser
+package com.sorcererxw.porknife.parser
 
-import entity.Episode
-import entity.EpisodeEnclosure
+import com.sorcererxw.porknife.entity.Episode
+import com.sorcererxw.porknife.entity.EpisodeEnclosure
 import org.w3c.dom.Node
-import utils.DatetimeUtil
-import utils.RssNamespaceResolver
+import com.sorcererxw.porknife.utils.DatetimeUtil
+import com.sorcererxw.porknife.utils.RssNamespaceResolver
 import java.util.*
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory

@@ -1,4 +1,4 @@
-package entity
+package com.sorcererxw.porknife.entity
 
 /**
  * @author: SorcererXW
