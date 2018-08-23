@@ -1,4 +1,4 @@
-package com.sorcererxw.porknife.entity
+package com.github.sorcererxw.porknife.entity
 
 import java.util.*
 

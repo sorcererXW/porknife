@@ -1,6 +1,6 @@
-import com.sorcererxw.porknife.Porknife
-import com.sorcererxw.porknife.utils.DocumentReader
-import com.sorcererxw.porknife.utils.DomPrinter
+import com.github.sorcererxw.porknife.Porknife
+import com.github.sorcererxw.porknife.utils.DocumentReader
+import com.github.sorcererxw.porknife.utils.DomPrinter
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.xpath.XPathFactory

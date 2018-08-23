@@ -1,13 +1,13 @@
-package com.sorcererxw.porknife.parser
+package com.github.sorcererxw.porknife.parser
 
-import com.sorcererxw.porknife.entity.Episode
-import com.sorcererxw.porknife.entity.Podcast
-import com.sorcererxw.porknife.entity.PodcastOwner
+import com.github.sorcererxw.porknife.entity.Episode
+import com.github.sorcererxw.porknife.entity.Podcast
+import com.github.sorcererxw.porknife.entity.PodcastOwner
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
-import com.sorcererxw.porknife.utils.DatetimeUtil
-import com.sorcererxw.porknife.utils.ListUtil
-import com.sorcererxw.porknife.utils.RssNamespaceResolver
+import com.github.sorcererxw.porknife.utils.DatetimeUtil
+import com.github.sorcererxw.porknife.utils.ListUtil
+import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
 import java.util.*
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory

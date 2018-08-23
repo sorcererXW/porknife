@@ -1,8 +1,8 @@
-package com.sorcererxw.porknife.parser
+package com.github.sorcererxw.porknife.parser
 
-import com.sorcererxw.porknife.entity.PodcastOwner
+import com.github.sorcererxw.porknife.entity.PodcastOwner
 import org.w3c.dom.Node
-import com.sorcererxw.porknife.utils.RssNamespaceResolver
+import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
 import javax.xml.xpath.XPathFactory
 
 /**

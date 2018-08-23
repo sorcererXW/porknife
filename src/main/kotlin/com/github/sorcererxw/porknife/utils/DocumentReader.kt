@@ -1,4 +1,4 @@
-package com.sorcererxw.porknife.utils
+package com.github.sorcererxw.porknife.utils
 
 import org.jsoup.Jsoup
 import org.jsoup.helper.W3CDom
