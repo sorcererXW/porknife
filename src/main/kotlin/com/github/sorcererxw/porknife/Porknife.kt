@@ -1,9 +1,9 @@
 package com.github.sorcererxw.porknife
 
 import com.github.sorcererxw.porknife.entity.Podcast
-import org.w3c.dom.Node
 import com.github.sorcererxw.porknife.parser.PodcastParser
 import com.github.sorcererxw.porknife.utils.DocumentReader
+import org.w3c.dom.Node
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
 
@@ -13,7 +13,7 @@ import javax.xml.xpath.XPathFactory
  * @description:
  */
 
-class Porknife {
+object Porknife {
     fun parse(url: String): Podcast {
         val document = DocumentReader(url).getDocument()
 

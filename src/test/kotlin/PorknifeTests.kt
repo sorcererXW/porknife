@@ -1,4 +1,5 @@
 import com.github.sorcererxw.porknife.Porknife
+import com.github.sorcererxw.porknife.utils.DatetimeUtil
 import com.github.sorcererxw.porknife.utils.DocumentReader
 import com.github.sorcererxw.porknife.utils.DomPrinter
 import java.text.SimpleDateFormat
@@ -11,19 +12,17 @@ import javax.xml.xpath.XPathFactory
  * @description:
  */
 
-class PorknifeTests {
-
-}
-
 fun testParser() {
-    val url = "http://yitianshijie.net/rss"
-
-    var porknife = Porknife()
-    var podcast = porknife.parse(url)
-
+    val url = "https://banlan.show/bitvoice.rss"
+    val podcast = Porknife.parse(url)
     println(podcast.toString())
 }
 
+fun testDuration(){
+    println(DatetimeUtil.duration2Second("3489"))
+    println(DatetimeUtil.duration2Second("23:54"))
+    println(DatetimeUtil.duration2Second("1:21:56:54"))
+}
 
 fun testDomPrinter() {
     val url = "http://yitianshijie.net/rss"
@@ -57,4 +56,5 @@ fun main(args: Array<String>) {
 //    testDomPrinter()
     testParser()
 //    testXpath()
+//    testDuration()
 }

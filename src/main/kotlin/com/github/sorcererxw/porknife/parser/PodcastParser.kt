@@ -33,7 +33,7 @@ class PodcastParser(private val channel: Node) {
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(channel) }.first()
     fun generator(): String = arrayOf("generator").map { xPath.compile(it).evaluate(channel) }.first()
     fun language(): String = arrayOf("language").map { xPath.compile(it).evaluate(channel) }.first()
-    fun image(): String = arrayOf("image").map { xPath.compile(it).evaluate(channel) }.first()
+    fun image(): String = arrayOf("itunes:image/@href","image/@href").map { xPath.compile(it).evaluate(channel) }.first()
 
     fun owner(): PodcastOwner? = arrayOf("itunes:owner")
             .map { xPath.compile(it).evaluate(channel, XPathConstants.NODE) as Node }

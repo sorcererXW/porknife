@@ -14,9 +14,22 @@ object DatetimeUtil {
             SimpleDateFormat("EE, dd MMM yy hh:mm:ss Z").parse(it)
 
     fun duration2Second(it: String): Int {
-        val dateFormat = SimpleDateFormat("mm:ss")
-        val base = dateFormat.parse("00:00")
-        val date = dateFormat.parse(it)
-        return ((date.time - base.time) / 1000L).toInt()
+        val splits = it.split(":")
+        var count = 0
+        var k = 0
+        for (i in splits.size - 1 downTo 0) {
+            val value = splits[i].toIntOrNull() ?: return 0
+            count += if (k == 0) {
+                value
+            } else if (k == 1) {
+                value * 60
+            } else if (k == 2) {
+                value * 60 * 60
+            } else {
+                break
+            }
+            k++
+        }
+        return count
     }
 }

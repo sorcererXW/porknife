@@ -2,9 +2,9 @@ package com.github.sorcererxw.porknife.parser
 
 import com.github.sorcererxw.porknife.entity.Episode
 import com.github.sorcererxw.porknife.entity.EpisodeEnclosure
-import org.w3c.dom.Node
 import com.github.sorcererxw.porknife.utils.DatetimeUtil
 import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
+import org.w3c.dom.Node
 import java.util.*
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
@@ -17,6 +17,7 @@ import javax.xml.xpath.XPathFactory
 
 class EpisodeParser(private val item: Node) {
     private val xPath = XPathFactory.newInstance().newXPath()
+
     init {
         xPath.namespaceContext = RssNamespaceResolver()
     }
@@ -28,13 +29,16 @@ class EpisodeParser(private val item: Node) {
     fun author(): String = arrayOf("author", "itunes:author").map { xPath.compile(it).evaluate(item) }.first()
     fun enclosure(): EpisodeEnclosure = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) as Node }.map { EnclosureParser(it).enclosure() }.first()
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(item) }.first()
-    fun duration(): Int = arrayOf("itunes:duration").map { xPath.compile(it).evaluate(item) }.filter { !it.isNullOrEmpty() }.map { DatetimeUtil.duration2Second(it) }.first()
     fun image(): String = arrayOf("itunes:image/@href").map { xPath.compile(it).evaluate(item) }.first()
     fun description(): String = arrayOf("description").map { xPath.compile(it).evaluate(item) }.first()
     fun summary(): String = arrayOf("itunes:summary").map { xPath.compile(it).evaluate(item) }.first()
     fun encoded(): String = arrayOf("content:encoded").map { xPath.compile(it).evaluate(item) }.first()
     fun episodeType(): String = arrayOf("episodeType").map { xPath.compile(it).evaluate(item) }.first()
     fun explicit(): Boolean = arrayOf("itunes:explicit").map { xPath.compile(it).evaluate(item) }.map { it == "yes" }.first()
+    fun duration(): Int = arrayOf("itunes:duration").map { xPath.compile(it).evaluate(item) }
+            .filter { !it.isNullOrEmpty() }.map { DatetimeUtil.duration2Second(it) }
+            .firstOrNull() ?: 0
+
     fun episode(): Episode = Episode(
             title = title(),
             link = link(),
