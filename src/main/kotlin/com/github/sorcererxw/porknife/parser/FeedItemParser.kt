@@ -1,7 +1,7 @@
 package com.github.sorcererxw.porknife.parser
 
-import com.github.sorcererxw.porknife.entity.Episode
-import com.github.sorcererxw.porknife.entity.EpisodeEnclosure
+import com.github.sorcererxw.porknife.entity.FeedItem
+import com.github.sorcererxw.porknife.entity.Enclosure
 import com.github.sorcererxw.porknife.utils.DatetimeUtil
 import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
 import org.w3c.dom.Node
@@ -15,7 +15,7 @@ import javax.xml.xpath.XPathFactory
  * @description:
  */
 
-class EpisodeParser(private val item: Node) {
+class FeedItemParser(private val item: Node) {
     private val xPath = XPathFactory.newInstance().newXPath()
 
     init {
@@ -27,7 +27,7 @@ class EpisodeParser(private val item: Node) {
     fun guid(): String = arrayOf("guid").map { xPath.compile(it).evaluate(item) }.first()
     fun pubData(): Date = arrayOf("pubDate").map { xPath.compile(it).evaluate(item) }.filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.first()
     fun author(): String = arrayOf("author", "itunes:author").map { xPath.compile(it).evaluate(item) }.first()
-    fun enclosure(): EpisodeEnclosure = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) as Node }.map { EnclosureParser(it).enclosure() }.first()
+    fun enclosure(): Enclosure = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) as Node }.map { EnclosureParser(it).enclosure() }.first()
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(item) }.first()
     fun image(): String = arrayOf("itunes:image/@href").map { xPath.compile(it).evaluate(item) }.first()
     fun description(): String = arrayOf("description").map { xPath.compile(it).evaluate(item) }.first()
@@ -39,7 +39,7 @@ class EpisodeParser(private val item: Node) {
             .filter { !it.isNullOrEmpty() }.map { DatetimeUtil.duration2Second(it) }
             .firstOrNull() ?: 0
 
-    fun episode(): Episode = Episode(
+    fun episode(): FeedItem = FeedItem(
             title = title(),
             link = link(),
             guid = guid(),

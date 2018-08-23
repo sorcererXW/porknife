@@ -5,9 +5,7 @@ package com.github.sorcererxw.porknife.entity
  * @date: 8/19/2018
  * @description:
  */
-
-data class EpisodeEnclosure(
-        val url: String,
-        val length: Long,
-        val type: String
+data class Owner(
+        val name: String,
+        val email: String
 )

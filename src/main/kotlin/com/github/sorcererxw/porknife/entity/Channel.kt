@@ -9,11 +9,11 @@ import kotlin.collections.ArrayList
  * @description:
  */
 
-data class Podcast(
+data class Channel(
         val title: String = "",
         val author: String = "",
         val link: String = "",
-        val owner: PodcastOwner? = null,
+        val owner: Owner? = null,
         var summary: String = "",
         val description: String = "",
         val type: String = "",
@@ -23,7 +23,7 @@ data class Podcast(
         val language: String = "",
         val image: String = "",
         val category: List<String> = ArrayList(),
-        val item: List<Episode> = ArrayList()
+        val item: List<FeedItem> = ArrayList()
 ) {
     override fun toString(): String {
         return "Podcast(" +

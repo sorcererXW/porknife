@@ -14,7 +14,7 @@ import javax.xml.xpath.XPathFactory
 
 fun testParser() {
     val url = "https://banlan.show/bitvoice.rss"
-    val podcast = Porknife.parse(url)
+    val podcast = Porknife().parse(url)
     println(podcast.toString())
 }
 

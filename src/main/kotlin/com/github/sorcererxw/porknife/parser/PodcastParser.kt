@@ -1,8 +1,8 @@
 package com.github.sorcererxw.porknife.parser
 
-import com.github.sorcererxw.porknife.entity.Episode
-import com.github.sorcererxw.porknife.entity.Podcast
-import com.github.sorcererxw.porknife.entity.PodcastOwner
+import com.github.sorcererxw.porknife.entity.FeedItem
+import com.github.sorcererxw.porknife.entity.Channel
+import com.github.sorcererxw.porknife.entity.Owner
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import com.github.sorcererxw.porknife.utils.DatetimeUtil
@@ -35,7 +35,7 @@ class PodcastParser(private val channel: Node) {
     fun language(): String = arrayOf("language").map { xPath.compile(it).evaluate(channel) }.first()
     fun image(): String = arrayOf("itunes:image/@href","image/@href").map { xPath.compile(it).evaluate(channel) }.first()
 
-    fun owner(): PodcastOwner? = arrayOf("itunes:owner")
+    fun owner(): Owner? = arrayOf("itunes:owner")
             .map { xPath.compile(it).evaluate(channel, XPathConstants.NODE) as Node }
             .map { OwnerParser(it).owner() }.firstOrNull()
 
@@ -48,13 +48,13 @@ class PodcastParser(private val channel: Node) {
             .map { ListUtil.convertToList(it, it.length) { set, idx -> set.item(idx) } }
             .flatMap { it }.map { it.nodeValue }.toList()
 
-    fun items(): List<Episode> = arrayOf("item")
+    fun items(): List<FeedItem> = arrayOf("item")
             .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) as NodeList }
             .map { ListUtil.convertToList(it, it.length) { set, idx -> set.item(idx) } }
-            .flatMap { it }.map { EpisodeParser(it).episode() }
+            .flatMap { it }.map { FeedItemParser(it).episode() }
             .toList()
 
-    fun podcast(): Podcast = Podcast(
+    fun podcast(): Channel = Channel(
             title = title(),
             author = author(),
             link = link(),
