@@ -1,8 +1,8 @@
 package com.github.sorcererxw.porknife.parser
 
 import com.github.sorcererxw.porknife.entity.Enclosure
-import org.w3c.dom.Node
 import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
+import org.w3c.dom.Node
 import javax.xml.xpath.XPathFactory
 
 /**
@@ -13,12 +13,13 @@ import javax.xml.xpath.XPathFactory
 
 class EnclosureParser(private val enclosure: Node) {
     private val xPath = XPathFactory.newInstance().newXPath()
+
     init {
         xPath.namespaceContext = RssNamespaceResolver()
     }
 
     fun url(): String = xPath.compile("@url").evaluate(enclosure)
-    fun length(): Long = xPath.compile("@length").evaluate(enclosure).toLong()
+    fun length(): Long = xPath.compile("@length").evaluate(enclosure).toLongOrNull() ?: 0
     fun type(): String = xPath.compile("@type").evaluate(enclosure)
     fun enclosure(): Enclosure = Enclosure(
             url = url(),

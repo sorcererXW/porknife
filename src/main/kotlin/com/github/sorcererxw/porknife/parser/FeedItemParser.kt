@@ -1,7 +1,7 @@
 package com.github.sorcererxw.porknife.parser
 
-import com.github.sorcererxw.porknife.entity.FeedItem
 import com.github.sorcererxw.porknife.entity.Enclosure
+import com.github.sorcererxw.porknife.entity.FeedItem
 import com.github.sorcererxw.porknife.utils.DatetimeUtil
 import com.github.sorcererxw.porknife.utils.RssNamespaceResolver
 import org.w3c.dom.Node
@@ -27,7 +27,7 @@ class FeedItemParser(private val item: Node) {
     fun guid(): String = arrayOf("guid").map { xPath.compile(it).evaluate(item) }.first()
     fun pubData(): Date? = arrayOf("pubDate").map { xPath.compile(it).evaluate(item) }.filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.firstOrNull()
     fun author(): String = arrayOf("author", "itunes:author").map { xPath.compile(it).evaluate(item) }.first()
-    fun enclosure(): Enclosure = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) as Node }.map { EnclosureParser(it).enclosure() }.first()
+    fun enclosure(): Enclosure? = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) }.filter { it != null }.map { it as Node }.map { EnclosureParser(it).enclosure() }.firstOrNull()
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(item) }.first()
     fun image(): String = arrayOf("itunes:image/@href").map { xPath.compile(it).evaluate(item) }.first()
     fun description(): String = arrayOf("description").map { xPath.compile(it).evaluate(item) }.first()

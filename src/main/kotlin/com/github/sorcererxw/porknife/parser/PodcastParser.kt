@@ -46,12 +46,14 @@ class PodcastParser(private val channel: Node) {
             .filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.firstOrNull()
 
     fun category(): List<String> = arrayOf("itunes:category/@text")
-            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) as NodeList }
+            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) }
+            .filter { it != null }.map { it as NodeList }
             .map { ListUtil.convertToList(it, it.length) { set, idx -> set.item(idx) } }
             .flatMap { it }.map { it.nodeValue }.toList()
 
     fun items(): List<FeedItem> = arrayOf("item")
-            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) as NodeList }
+            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) }
+            .filter { it != null }.map { it as NodeList }
             .map { ListUtil.convertToList(it, it.length) { set, idx -> set.item(idx) } }
             .flatMap { it }.map { FeedItemParser(it).episode() }
             .toList()

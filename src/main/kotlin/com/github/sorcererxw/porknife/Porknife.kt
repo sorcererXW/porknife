@@ -20,10 +20,9 @@ class Porknife {
 //        DomPrinter(document).printDom()
         val xPath = XPathFactory.newInstance().newXPath()
         val channel = arrayOf("/rss/channel", "/html/body/rss/channel")
-                .map {
-                    val any = xPath.compile(it).evaluate(document, XPathConstants.NODE)
-                    if (any == null) null else any as Node
-                }.firstOrNull { it != null } ?: throw Exception("UnSupport $url")
+                .map { xPath.compile(it).evaluate(document, XPathConstants.NODE) }
+                .filter { it != null }.map { it as Node }
+                .firstOrNull() ?: throw Exception("UnSupport $url")
 
         val podcastParser = PodcastParser(channel)
 
