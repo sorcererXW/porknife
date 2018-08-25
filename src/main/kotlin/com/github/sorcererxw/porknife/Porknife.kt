@@ -16,8 +16,6 @@ import javax.xml.xpath.XPathFactory
 class Porknife {
     fun parse(url: String): Channel {
         val document = DocumentReader(url).getDocument()
-//        println(document.childNodes.length)
-//        DomPrinter(document).printDom()
         val xPath = XPathFactory.newInstance().newXPath()
         val channel = arrayOf("/rss/channel", "/html/body/rss/channel")
                 .map { xPath.compile(it).evaluate(document, XPathConstants.NODE) }
