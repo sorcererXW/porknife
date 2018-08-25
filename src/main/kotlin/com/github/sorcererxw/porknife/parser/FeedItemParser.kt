@@ -25,7 +25,7 @@ class FeedItemParser(private val item: Node) {
     fun title(): String = arrayOf("title").map { xPath.compile(it).evaluate(item) }.first()
     fun link(): String = arrayOf("link").map { xPath.compile(it).evaluate(item) }.first()
     fun guid(): String = arrayOf("guid").map { xPath.compile(it).evaluate(item) }.first()
-    fun pubData(): Date = arrayOf("pubDate").map { xPath.compile(it).evaluate(item) }.filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.first()
+    fun pubData(): Date? = arrayOf("pubDate").map { xPath.compile(it).evaluate(item) }.filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.firstOrNull()
     fun author(): String = arrayOf("author", "itunes:author").map { xPath.compile(it).evaluate(item) }.first()
     fun enclosure(): Enclosure = arrayOf("enclosure").map { xPath.compile(it).evaluate(item, XPathConstants.NODE) as Node }.map { EnclosureParser(it).enclosure() }.first()
     fun subtitle(): String = arrayOf("itunes:subtitle").map { xPath.compile(it).evaluate(item) }.first()

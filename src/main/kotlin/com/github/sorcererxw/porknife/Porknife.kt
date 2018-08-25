@@ -16,10 +16,14 @@ import javax.xml.xpath.XPathFactory
 class Porknife {
     fun parse(url: String): Channel {
         val document = DocumentReader(url).getDocument()
-
+//        println(document.childNodes.length)
+//        DomPrinter(document).printDom()
         val xPath = XPathFactory.newInstance().newXPath()
-        val channel = xPath.compile("/rss/channel")
-                .evaluate(document, XPathConstants.NODE) as Node
+        val channel = arrayOf("/rss/channel", "/html/body/rss/channel")
+                .map {
+                    val any = xPath.compile(it).evaluate(document, XPathConstants.NODE)
+                    if (any == null) null else any as Node
+                }.firstOrNull { it != null } ?: throw Exception("UnSupport $url")
 
         val podcastParser = PodcastParser(channel)
 

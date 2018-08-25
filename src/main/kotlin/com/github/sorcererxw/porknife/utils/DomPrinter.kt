@@ -17,7 +17,15 @@ class DomPrinter(private val domElement: Node) {
     }
 
     private fun printDom(node: Node, level: Int) {
-        if (node.nodeType == Node.ELEMENT_NODE) {
+        if (node.nodeType == Node.TEXT_NODE) {
+            val content = node.textContent
+            if (content == null || content.trim().isEmpty()) {
+                print("")
+            } else {
+                printIndent(level)
+                println(content)
+            }
+        } else {
             printIndent(level)
             println("<" + node.nodeName + ">")
             if (node.hasChildNodes()) {
@@ -28,14 +36,6 @@ class DomPrinter(private val domElement: Node) {
             }
             printIndent(level)
             println("<" + node.nodeName + "/>")
-        } else if (node.nodeType == Node.TEXT_NODE) {
-            val content = node.textContent
-            if (content == null || content.trim().isEmpty()) {
-                print("")
-            } else {
-                printIndent(level)
-                println(content)
-            }
         }
     }
 

@@ -37,12 +37,13 @@ class PodcastParser(private val channel: Node) {
     fun explicit(): Boolean = arrayOf("itunes:explicit").map { xPath.compile(it).evaluate(channel) }.map { it == "yes" }.first()
 
     fun owner(): Owner? = arrayOf("itunes:owner")
-            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODE) as Node }
+            .map { xPath.compile(it).evaluate(channel, XPathConstants.NODE) }
+            .filter { it != null }.map { it as Node }
             .map { OwnerParser(it).owner() }.firstOrNull()
 
-    fun pubDate(): Date = arrayOf("pubDate", "lastBuildDate")
+    fun pubDate(): Date? = arrayOf("pubDate", "lastBuildDate")
             .map { xPath.compile(it).evaluate(channel) }
-            .filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.first()
+            .filter { !it.isNullOrEmpty() }.map { DatetimeUtil.pubDateConvert(it) }.firstOrNull()
 
     fun category(): List<String> = arrayOf("itunes:category/@text")
             .map { xPath.compile(it).evaluate(channel, XPathConstants.NODESET) as NodeList }
