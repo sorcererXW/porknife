@@ -13,7 +13,7 @@ import javax.xml.xpath.XPathFactory
  */
 
 fun testParser() {
-    val url = "https://kernelpanic.fm/feed"
+    val url = "http://rss.lizhi.fm/rss/1728291.xml"
     val podcast = Porknife().parse(url)
     println(podcast.toString())
 }
