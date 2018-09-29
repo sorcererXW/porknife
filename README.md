@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/sorcererxw/porknife.svg)](https://jitpack.io/#sorcererxw/porknife)
+
 A tool to parse podcast rss.
 
 # Install
